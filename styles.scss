@@ -1,0 +1,125 @@
+@font-face {
+    font-family: 'bungee_regularregular';
+    src: url('assets/bungee-regular-webfont.woff2') format('woff2'), url('assets/bungee-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'bloodynormal';
+    src: url('assets/bloody-webfont.woff2') format('woff2'), url('assets/bloody-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'gothic_ultra_otregular';
+    src: url('assets/gothic_ultra_ot-webfont.woff2') format('woff2'), url('assets/gothic_ultra_ot-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    background: url("assets/Background.png") no-repeat center left fixed;
+    background-size: cover;
+}
+
+$red: #FF530D;
+.title {
+    font-family: 'bloodynormal';
+    letter-spacing: 2px;
+    font-size: 6em;
+    font-weight: bold;
+    color: $red;
+    -webkit-text-stroke: 2px black;
+    margin: 1em 0 0 0;
+}
+
+.flexRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.flexCol {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.gameButtonsContainer {
+    font-family: 'bungee_regularregular';
+    font-size: 2.5em;
+    line-height: 2.5em;
+    font-weight: bold;
+    text-transform: uppercase;
+    -webkit-text-stroke: 2px black;
+    & .button {
+        color: #DDE5E5;
+        transition: all 0.2s cubic-bezier(.17, .67, .83, .67);
+        cursor: pointer;
+        margin: 0 20px;
+        &.large {
+            font-size: 120%;
+        }
+        &:hover {
+            color: white;
+            transform: rotate(3deg) scale(1.1);
+        }
+    }
+}
+
+#mirrorContainer {
+    position: relative;
+    width: 1000px;
+    height: 630px;
+    #mirrorFrame {
+        z-index: 4;
+        position: absolute;
+        top: 20px;
+        width: 1000px;
+        height: 630px;
+    }
+    #camera {
+        z-index: 3;
+        position: absolute;
+        top: -10px;
+        left: 70px;
+        width: 900px;
+        height: 700px;
+    }
+    #background {
+        z-index: 2;
+        position: absolute;
+        top: 70px;
+        left: 50px;
+        width: 900px;
+        height: 530px;
+        background: linear-gradient(90deg, rgba(22, 22, 22, .4), rgba(0, 73, 146, .4));
+        box-shadow: 0 20px 30px 30px rgba(0, 0, 0, 0.8);
+    }
+    .gameText {
+        color: white;
+        text-align: center;
+        line-height: 1em;
+        font-size: 5em;
+        z-index: 5;
+        position: absolute;
+        top: 150px;
+        left: 150px;
+        width: 700px;
+        font-family: 'gothic_ultra_otregular';
+        filter: blur(0px);
+        transition: filter 1s;
+        .emotionText {
+            color: $red;
+            font-size: 140%;
+            text-shadow: 0 0 7px black;
+            font-weight: bold;
+        }
+        &:hover {
+            filter: blur(50px);
+        }
+    }
+}

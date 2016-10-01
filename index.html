@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Mirror Mirror</title>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <div class="flexCol">
+        <p class="title">Mirror Mirror</p>
+        <div class="flexRow gameButtonsContainer">
+            <div class="button">Readme</div>
+            <div class="button large">Start</div>
+            <div class="button">Scoreboard</div>
+        </div>
+    </div>
+
+    <div class="flexRow">
+        <div id="mirrorContainer">
+            <img id="mirrorFrame" src="assets/Frame.png">
+            <div id="camera"></div>
+            <div id="background"></div>
+            <div class="gameText">
+                <div>Lets see who is the</div>
+                <div class="emotionText">Happiest</div>
+                <div>of you all</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="result"></div>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://use.fontawesome.com/9af9345307.js"></script>
+    <script src="webcam.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
