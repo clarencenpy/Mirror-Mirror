@@ -32,7 +32,7 @@ $red: #FF530D;
     font-weight: bold;
     color: $red;
     -webkit-text-stroke: 2px black;
-    margin: 1em 0 0 0;
+    margin: 50px 0 0 0;
 }
 
 .flexRow {
@@ -84,10 +84,28 @@ $red: #FF530D;
     #camera {
         z-index: 3;
         position: absolute;
-        top: -10px;
+        top: -20px;
         left: 70px;
         width: 900px;
         height: 700px;
+        transition: filter 2s ease, opacity 2s ease;
+        opacity: 1;
+        filter: blur(0);
+        &.blur {
+            filter: blur(100px);
+            opacity: 0;
+        }
+    }
+    #photo {
+        z-index: 3;
+        position: absolute;
+        top: 70px;
+        left: 70px;
+        opacity: 1;
+        img {
+            width: 900px;
+            height: 512px;    
+        }
     }
     #background {
         z-index: 2;
@@ -99,7 +117,7 @@ $red: #FF530D;
         background: linear-gradient(90deg, rgba(22, 22, 22, .4), rgba(0, 73, 146, .4));
         box-shadow: 0 20px 30px 30px rgba(0, 0, 0, 0.8);
     }
-    .gameText {
+    #gameText {
         color: white;
         text-align: center;
         line-height: 1em;
@@ -111,15 +129,37 @@ $red: #FF530D;
         width: 700px;
         font-family: 'gothic_ultra_otregular';
         filter: blur(0px);
-        transition: filter 1s;
-        .emotionText {
+        opacity: 1;
+        transition: filter 2s ease, opacity 2s ease;
+        #emotionText {
             color: $red;
             font-size: 140%;
             text-shadow: 0 0 7px black;
             font-weight: bold;
         }
-        &:hover {
-            filter: blur(50px);
+        &.blur {
+            filter: blur(100px);
+            opacity: 0;
+        }
+    }
+    #countdownBar {
+        z-index: 3;
+        position: absolute;
+        bottom: 33px;
+        left: 62px;
+        height: 15px;
+
+        .front {
+            position: absolute;
+            height: 100%;
+            width: 870px;
+            background: $red;
+        }
+        .back {
+            position: absolute;
+            height: 100%;
+            width: 870px;
+            background: #854532;
         }
     }
 }

@@ -24,7 +24,7 @@ body {
   font-weight: bold;
   color: #FF530D;
   -webkit-text-stroke: 2px black;
-  margin: 1em 0 0 0; }
+  margin: 50px 0 0 0; }
 
 .flexRow {
   display: flex;
@@ -68,10 +68,25 @@ body {
   #mirrorContainer #camera {
     z-index: 3;
     position: absolute;
-    top: -10px;
+    top: -20px;
     left: 70px;
     width: 900px;
-    height: 700px; }
+    height: 700px;
+    transition: filter 2s ease, opacity 2s ease;
+    opacity: 1;
+    filter: blur(0); }
+    #mirrorContainer #camera.blur {
+      filter: blur(100px);
+      opacity: 0; }
+  #mirrorContainer #photo {
+    z-index: 3;
+    position: absolute;
+    top: 70px;
+    left: 70px;
+    opacity: 1; }
+    #mirrorContainer #photo img {
+      width: 900px;
+      height: 512px; }
   #mirrorContainer #background {
     z-index: 2;
     position: absolute;
@@ -81,7 +96,7 @@ body {
     height: 530px;
     background: linear-gradient(90deg, rgba(22, 22, 22, 0.4), rgba(0, 73, 146, 0.4));
     box-shadow: 0 20px 30px 30px rgba(0, 0, 0, 0.8); }
-  #mirrorContainer .gameText {
+  #mirrorContainer #gameText {
     color: white;
     text-align: center;
     line-height: 1em;
@@ -93,13 +108,31 @@ body {
     width: 700px;
     font-family: 'gothic_ultra_otregular';
     filter: blur(0px);
-    transition: filter 1s; }
-    #mirrorContainer .gameText .emotionText {
+    opacity: 1;
+    transition: filter 2s ease, opacity 2s ease; }
+    #mirrorContainer #gameText #emotionText {
       color: #FF530D;
       font-size: 140%;
       text-shadow: 0 0 7px black;
       font-weight: bold; }
-    #mirrorContainer .gameText:hover {
-      filter: blur(50px); }
+    #mirrorContainer #gameText.blur {
+      filter: blur(100px);
+      opacity: 0; }
+  #mirrorContainer #countdownBar {
+    z-index: 3;
+    position: absolute;
+    bottom: 33px;
+    left: 62px;
+    height: 15px; }
+    #mirrorContainer #countdownBar .front {
+      position: absolute;
+      height: 100%;
+      width: 870px;
+      background: #FF530D; }
+    #mirrorContainer #countdownBar .back {
+      position: absolute;
+      height: 100%;
+      width: 870px;
+      background: #854532; }
 
 /*# sourceMappingURL=styles.css.map */

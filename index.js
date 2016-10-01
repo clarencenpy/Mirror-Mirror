@@ -1,13 +1,26 @@
+const Emotions = [
+    {desc: 'Happiest', value: 'happiness'},
+    {desc: 'Saddest', value: 'sadness'},
+    {desc: 'Most Fearful', value: 'fear'},
+    {desc: 'Most Disgusted', value: 'digust'},
+    {desc: 'Most Pokerface', value: 'neutral'},
+    {desc: 'Most Surprised', value: 'surprise'},
+    {desc: 'Angry', value: 'anger'}
+]
+
 const App = {
+
+    state: {
+        gameInProgress: false,
+        currentEmotion: Emotions[0]
+    },
+
     init() {
-        // App.initCamera()
+        App.initCamera()
         App.bindEvents()
     },
 
     initCamera() {
-        // setTimeout(() => {
-        //     Webcam.reset()
-        // }, 5 * 1000)
         Webcam.attach('#camera')
         Webcam.set({
             flip_horiz: true
@@ -15,9 +28,54 @@ const App = {
     },
 
     bindEvents() {
-        $('#takePhoto').on('click', () => {
-            App.takeSnapshot()
+        $('#startBtn').on('click', () => {
+            if (!App.state.gameInProgress) {
+                App.state.gameInProgress = true;
+                //change status of the start button
+                $('#startBtn').text('Reset')
+                App.startGameSequence()
+            } else {
+                App.state.gameInProgress = false
+                //change status of the start button
+                $('#startBtn').text('Start')
+                App.resetGame()
+            }
+
         })
+
+    },
+
+    startGameSequence() {
+
+        //set the game emotion text        
+        $('#emotionText').text(App.state.currentEmotion.desc)
+
+        //first, show the magic enchantments
+        $('#gameText').removeClass('blur')
+            //crossfade with camera
+        setTimeout(() => {
+            $('#camera').removeClass('blur')
+        }, 4000)
+        setTimeout(() => {
+            $('#gameText').addClass('blur')
+                //start the countdown.. 
+            $('#countdownBar .front').animate({ width: '0px' }, 8000, () => {
+                App.takeSnapshot()
+            })
+        }, 5000)
+    },
+
+    resetGame() {
+        $('#camera').addClass('blur')
+        $('#countdownBar .front').animate({ width: '870px' }, 500)
+        $('#photo').animate({ opacity: '0' }, 500)
+
+        let emotion
+        do {
+            emotion = Emotions[Math.floor(Math.random() * Emotions.length)]
+        }
+        while (App.state.currentEmotion.desc == emotion.desc) 
+        App.state.currentEmotion = emotion
 
     },
 
@@ -44,7 +102,7 @@ const App = {
     takeSnapshot() {
         Webcam.snap(function(dataUri) {
             App.submitImage(dataUri)
-            $('#result').innerHTML = '<img src="' + dataUri + '"/>'
+            $('#photo').html(`<img src="${dataUri}"/>`).css('opacity', 1)
         })
     },
 
@@ -61,8 +119,6 @@ const App = {
             data: rawBinary
         }).done((data) => {
             console.log(data)
-            console.log(data[0].scores.happiness > data[1].scores.happiness ? 'Clarence Wins!!' : 'Edison Wins!!')
-            console.log()
         })
     }
 }

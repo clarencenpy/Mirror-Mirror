@@ -12,7 +12,7 @@
         <p class="title">Mirror Mirror</p>
         <div class="flexRow gameButtonsContainer">
             <div class="button">Readme</div>
-            <div class="button large">Start</div>
+            <div id="startBtn" class="button large">Start</div>
             <div class="button">Scoreboard</div>
         </div>
     </div>
@@ -20,12 +20,18 @@
     <div class="flexRow">
         <div id="mirrorContainer">
             <img id="mirrorFrame" src="assets/Frame.png">
-            <div id="camera"></div>
+            <div id="camera" class="blur"></div>
             <div id="background"></div>
-            <div class="gameText">
-                <div>Lets see who is the</div>
-                <div class="emotionText">Happiest</div>
-                <div>of you all</div>
+            <div id="photo"></div>
+            <div id="countdownBar">
+                <div class="back"></div>
+                <div class="front"></div>
+            </div>
+            <div id="gameText" class="blur">
+                <div>Mirror mirror on the wall,</div>
+                <div>Who is the</div>
+                <div id="emotionText">Happiest</div>
+                <div>of them all ...</div>
             </div>
         </div>
     </div>
