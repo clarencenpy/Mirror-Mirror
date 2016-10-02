@@ -30,7 +30,7 @@ const App = {
     bindEvents() {
         $('#startBtn').on('click', () => {
             if (!App.state.gameInProgress) {
-                App.state.gameInProgress = true;
+                App.state.gameInProgress = true
                 //change status of the start button
                 $('#startBtn').text('Reset')
                 App.startGameSequence()
@@ -59,7 +59,7 @@ const App = {
         setTimeout(() => {
             $('#gameText').addClass('blur')
                 //start the countdown.. 
-            $('#countdownBar .front').animate({ width: '0px' }, 8000, () => {
+            $('#countdownBar .front').animate({ width: '0px' }, 2000, () => {
                 App.takeSnapshot()
             })
         }, 5000)
@@ -76,7 +76,8 @@ const App = {
         }
         while (App.state.currentEmotion.desc == emotion.desc) 
         App.state.currentEmotion = emotion
-
+        
+        $('#faceFrames').html('')
     },
 
     dataURItoBlob(dataURI) {
@@ -118,8 +119,53 @@ const App = {
             contentType: 'application/octet-stream',
             data: rawBinary
         }).done((data) => {
+
+            App.processEmotionScores(data)
             console.log(data)
+
         })
+    },
+
+    processEmotionScores(data) {
+        //first, parse the response data and calculate the highest score
+        let highscore = 0
+        for (let d of data) {
+            d.computedScore = Math.round((d.scores[App.state.currentEmotion.value] * 10000))
+            
+            if (d.computedScore >= highscore) {
+                highscore = d.computedScore
+            }
+        }
+
+        //draw the face rectangles
+        for (let d of data) {
+            const $frame = $('<div class="frame"></div>')
+            const $rect = $('<div class="rectangle"></div>')
+            const $label = $('<div class="label"></div>')
+
+            $rect.css({
+                width: d.faceRectangle.width,
+                height: d.faceRectangle.height,
+                top: d.faceRectangle.top - 40,
+                left: d.faceRectangle.left + 60,
+            })
+
+            $label.css({
+                top: d.faceRectangle.top - 62,
+                left: d.faceRectangle.left + 60,
+            })
+
+            if (d.computedScore === highscore) {
+                $label.addClass('winner')
+                $label.text(`WINNER: ${d.computedScore} PTS`)
+            } else {
+                $label.text(`${d.computedScore} PTS`)
+            }
+
+            $frame.append($label)
+            $frame.append($rect)
+            $('#faceFrames').append($frame)
+        }
     }
 }
 

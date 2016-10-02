@@ -1,3 +1,4 @@
+@import 'https://fonts.googleapis.com/css?family=Inconsolata:700';
 @font-face {
     font-family: 'bungee_regularregular';
     src: url('assets/bungee-regular-webfont.woff2') format('woff2'), url('assets/bungee-regular-webfont.woff') format('woff');
@@ -107,6 +108,35 @@ $red: #FF530D;
             height: 512px;    
         }
     }
+    #faceFrames {
+        .label {
+            border-top-left-radius: 5px;
+            border-top-right-radius: 5px;
+            z-index: 3;
+            position: absolute;
+            background: $red;
+            width: 65px;
+            height: 20px;
+            line-height: 20px;
+            font-family: 'Inconsolata';
+            font-weight: 700;
+            font-size: 16px;
+            color: black;
+            padding: 3px 6px;
+
+            &.winner {
+                width: 170px;
+                font-size: 130%;
+            }
+        }
+        .rectangle {
+            z-index: 3;
+            position: absolute;
+            border: 5px solid $red;
+            background: transparent;
+        }    
+    }
+    
     #background {
         z-index: 2;
         position: absolute;
