@@ -15,7 +15,7 @@
   font-weight: normal;
   font-style: normal; }
 body {
-  background: url("assets/Background.png") no-repeat center left fixed;
+  background: url("http://i.imgur.com/zP43b.jpg") no-repeat center left fixed;
   background-size: cover; }
 
 .title {
@@ -94,7 +94,7 @@ body {
     z-index: 3;
     position: absolute;
     background: #FF530D;
-    width: 65px;
+    width: 80px;
     height: 20px;
     line-height: 20px;
     font-family: 'Inconsolata';
@@ -103,7 +103,7 @@ body {
     color: black;
     padding: 3px 6px; }
     #mirrorContainer #faceFrames .label.winner {
-      width: 170px;
+      width: 185px;
       font-size: 130%; }
   #mirrorContainer #faceFrames .rectangle {
     z-index: 3;
@@ -117,7 +117,7 @@ body {
     left: 50px;
     width: 900px;
     height: 530px;
-    background: linear-gradient(90deg, rgba(22, 22, 22, 0.4), rgba(0, 73, 146, 0.4));
+    background: linear-gradient(90deg, rgba(22, 22, 22, 0.6), rgba(0, 73, 146, 0.4));
     box-shadow: 0 20px 30px 30px rgba(0, 0, 0, 0.8); }
   #mirrorContainer #gameText, #mirrorContainer #readmeText {
     color: white;

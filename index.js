@@ -72,7 +72,7 @@ const App = {
         setTimeout(() => {
             $('#gameText').addClass('blur')
                 //start the countdown.. 
-            $('#countdownBar .front').animate({ width: '0px' }, 2000, () => {
+            $('#countdownBar .front').animate({ width: '0px' }, 4000, () => {
                 App.takeSnapshot()
             })
         }, 5000)
