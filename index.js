@@ -141,6 +141,10 @@ const App = {
             data: rawBinary
         }).done((data) => {
             App.state.gameInProgress = false
+            if (data.length === 0) {
+                //no face detected, show error message
+                $('#readmeText').text('No human faces found.. show yourself!!').removeClass('blur')
+            }
             App.processEmotionScores(data)
             $('#startBtn').text('New Game').css('color', 'white')
         })
