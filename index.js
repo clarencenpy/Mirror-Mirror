@@ -1,3 +1,4 @@
+// A list of the support emotions that the game can detect
 const Emotions = [
     {desc: 'Happiest', value: 'happiness'},
     {desc: 'Saddest', value: 'sadness'},
@@ -8,18 +9,22 @@ const Emotions = [
     {desc: 'Angry', value: 'anger'}
 ]
 
+// module pattern, keeps all app related functions namespaced under App
 const App = {
 
+    //storing the current game state
     state: {
         gameInProgress: false,
         currentEmotion: Emotions[0]
     },
 
+    //bootstraps the app
     init() {
         App.initCamera()
         App.bindEvents()
     },
 
+    //using webcam.js to initialise the camera
     initCamera() {
         Webcam.attach('#camera')
         Webcam.set({
@@ -27,6 +32,7 @@ const App = {
         })
     },
 
+    //bind event handlers to buttons
     bindEvents() {
         $('#startBtn').on('click', () => {
             if (!App.state.gameInProgress) {
@@ -45,6 +51,7 @@ const App = {
 
     },
 
+    //trigger game start
     startGameSequence() {
 
         //set the game emotion text        
@@ -65,11 +72,13 @@ const App = {
         }, 5000)
     },
 
+    //reset the game to original state, ready to start a new game
     resetGame() {
         $('#camera').addClass('blur')
         $('#countdownBar .front').animate({ width: '870px' }, 500)
         $('#photo').animate({ opacity: '0' }, 500)
 
+        //choose a different emotion for the next game
         let emotion
         do {
             emotion = Emotions[Math.floor(Math.random() * Emotions.length)]
@@ -80,9 +89,9 @@ const App = {
         $('#faceFrames').html('')
     },
 
+    // convert base64 to raw binary data held in a string
+    // modified code from: http://stackoverflow.com/questions/12168909/blob-from-dataurl
     dataURItoBlob(dataURI) {
-        // convert base64 to raw binary data held in a string
-        // doesn't handle URLEncoded DataURIs - see SO answer #6850276 for code that does this
         const byteString = atob(dataURI.split(',')[1])
 
         // separate out the mime component
@@ -100,6 +109,7 @@ const App = {
         return blob
     },
 
+    //takes a photo and displays it in the same place
     takeSnapshot() {
         Webcam.snap(function(dataUri) {
             App.submitImage(dataUri)
@@ -107,25 +117,25 @@ const App = {
         })
     },
 
+    // submit image to the API for analysis
     submitImage(dataUri) {
+        //need to convert URI to binary as that is the format the api expects
         const rawBinary = App.dataURItoBlob(dataUri)
         $.ajax('https://api.projectoxford.ai/emotion/v1.0/recognize', {
             method: 'POST',
             headers: {
-                // This is the API key that I obtained from Microsoft
+                // This is the API key that I obtained from Microsoft Cognitive Services 
                 'Ocp-Apim-Subscription-Key': '85ed9c6a9b0f48f9839786c0e9ca6e26'
             },
             processData: false, //we dont want jquery to parse the raw binary
             contentType: 'application/octet-stream',
             data: rawBinary
         }).done((data) => {
-
             App.processEmotionScores(data)
-            console.log(data)
-
         })
     },
 
+    // takes the data returned from the API and render the results, and shows the winner of the match
     processEmotionScores(data) {
         //first, parse the response data and calculate the highest score
         let highscore = 0
@@ -150,11 +160,13 @@ const App = {
                 left: d.faceRectangle.left + 60,
             })
 
+            //draw the result label at the top 
             $label.css({
                 top: d.faceRectangle.top - 62,
                 left: d.faceRectangle.left + 60,
             })
 
+            //add special styling if this is the winner
             if (d.computedScore === highscore) {
                 $label.addClass('winner')
                 $label.text(`WINNER: ${d.computedScore} PTS`)
@@ -169,6 +181,7 @@ const App = {
     }
 }
 
+// when all resources are loaded, initialise the app
 $(document).ready(() => {
     App.init()
 })
