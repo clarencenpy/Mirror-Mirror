@@ -147,7 +147,7 @@ $red: #FF530D;
         background: linear-gradient(90deg, rgba(22, 22, 22, .4), rgba(0, 73, 146, .4));
         box-shadow: 0 20px 30px 30px rgba(0, 0, 0, 0.8);
     }
-    #gameText {
+    #gameText, #readmeText {
         color: white;
         text-align: center;
         line-height: 1em;
@@ -171,6 +171,9 @@ $red: #FF530D;
             filter: blur(100px);
             opacity: 0;
         }
+    }
+    #readmeText {
+        font-size: 3em;        
     }
     #countdownBar {
         z-index: 3;

@@ -119,7 +119,7 @@ body {
     height: 530px;
     background: linear-gradient(90deg, rgba(22, 22, 22, 0.4), rgba(0, 73, 146, 0.4));
     box-shadow: 0 20px 30px 30px rgba(0, 0, 0, 0.8); }
-  #mirrorContainer #gameText {
+  #mirrorContainer #gameText, #mirrorContainer #readmeText {
     color: white;
     text-align: center;
     line-height: 1em;
@@ -133,14 +133,16 @@ body {
     filter: blur(0px);
     opacity: 1;
     transition: filter 2s ease, opacity 2s ease; }
-    #mirrorContainer #gameText #emotionText {
+    #mirrorContainer #gameText #emotionText, #mirrorContainer #readmeText #emotionText {
       color: #FF530D;
       font-size: 140%;
       text-shadow: 0 0 7px black;
       font-weight: bold; }
-    #mirrorContainer #gameText.blur {
+    #mirrorContainer #gameText.blur, #mirrorContainer #readmeText.blur {
       filter: blur(100px);
       opacity: 0; }
+  #mirrorContainer #readmeText {
+    font-size: 3em; }
   #mirrorContainer #countdownBar {
     z-index: 3;
     position: absolute;

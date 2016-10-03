@@ -3,10 +3,10 @@ const Emotions = [
     {desc: 'Happiest', value: 'happiness'},
     {desc: 'Saddest', value: 'sadness'},
     {desc: 'Most Fearful', value: 'fear'},
-    {desc: 'Most Disgusted', value: 'digust'},
+    {desc: 'Most Disgusted', value: 'disgust'},
     {desc: 'Most Pokerface', value: 'neutral'},
     {desc: 'Most Surprised', value: 'surprise'},
-    {desc: 'Angry', value: 'anger'}
+    {desc: 'Angriest', value: 'anger'}
 ]
 
 // module pattern, keeps all app related functions namespaced under App
@@ -38,21 +38,27 @@ const App = {
             if (!App.state.gameInProgress) {
                 App.state.gameInProgress = true
                 //change status of the start button
-                $('#startBtn').text('Reset')
-                App.startGameSequence()
-            } else {
-                App.state.gameInProgress = false
-                //change status of the start button
-                $('#startBtn').text('Start')
-                App.resetGame()
-            }
+                $('#startBtn').text('Start').css('color', 'lightgreen')
+                App.restartGame()
+            } 
+        })
 
+        $('#readmeBtn').on('click', () => {
+            App.fetchReadme()
         })
 
     },
 
+    fetchReadme() {
+        $.get('readme.txt', data => {
+            $('#readmeText').text(data).toggleClass('blur')
+        })
+    },
+
     //trigger game start
     startGameSequence() {
+
+        $('#readmeText').addClass('blur')
 
         //set the game emotion text        
         $('#emotionText').text(App.state.currentEmotion.desc)
@@ -72,8 +78,8 @@ const App = {
         }, 5000)
     },
 
-    //reset the game to original state, ready to start a new game
-    resetGame() {
+    //reset the game to original state, and to start a new game
+    restartGame() {
         $('#camera').addClass('blur')
         $('#countdownBar .front').animate({ width: '870px' }, 500)
         $('#photo').animate({ opacity: '0' }, 500)
@@ -87,6 +93,9 @@ const App = {
         App.state.currentEmotion = emotion
         
         $('#faceFrames').html('')
+
+        //restart the game
+        App.startGameSequence()
     },
 
     // convert base64 to raw binary data held in a string
@@ -131,7 +140,9 @@ const App = {
             contentType: 'application/octet-stream',
             data: rawBinary
         }).done((data) => {
+            App.state.gameInProgress = false
             App.processEmotionScores(data)
+            $('#startBtn').text('New Game').css('color', 'white')
         })
     },
 
